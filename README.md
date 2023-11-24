@@ -25,14 +25,17 @@ SIWARANG (Destinasi Wisata Kota Semarang) merupakan sebuah situs website yang ak
 
 ## Tangkapan Layar Komponen Penting Produk
 
-1. **Antarmuka Utama:**
-   ![Antarmuka Utama](screenshots/main_interface.png)
+1. **Interface Utama:**
+   ![Interface Utama](assets/img/gambar/interface_utama.png)
 
-2. **Informasi Detail Lokasi:**
-   ![Informasi Detail Lokasi](screenshots/location_details.png)
+2. **Administrasi:**
+   ![Administrasi](assets/img/gambar/Administrasi.png)
 
-3. **Peta Interaktif:**
-   ![Peta Interaktif](screenshots/interactive_map.png)
+3. **Titik Lokasi:**
+   ![Titik Lokasi](assets/img/gambar/Tititk_lokasi.png)
+
+4. **Chart:**
+   ![Chart](assets/img/gambar/chart.png)
 
 ## Demo Produk
 
