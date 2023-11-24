@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
+      rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
+
+  <title>SIWARANG</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="assets/plugins/leaflet-search/leaflet-search.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ 
+
+
+  <!-- Leaflet Mouse Position CSS Library -->
+  <link rel="stylesheet" href="assets/plugins/leaflet-mouseposition/L.Control.MousePosition.css" />
+
+  <!-- Leaflet Measure CSS Library -->
+  <link rel="stylesheet" href="assets/plugins/leaflet-measure/leaflet-measure.css" />
+
+  <!-- EasyPrint CSS Library -->
+  <link rel="stylesheet" href="assets/plugins/leaflet-easyprint/easyPrint.css" />
+
+  <!-- Favicons -->
+  <link href="assets/img/1.png" rel="icon">
+
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+
+  <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+
+  <link rel="stylesheet" href="assets1/css/templatemo-klassy-cafe.css">
+
+  <link rel="stylesheet" href="assets1/css/owl-carousel.css">
+
+  <link rel="stylesheet" href="assets1/css/lightbox.css">
+
+
+  <style>
+    #map {
+      height: 80vh;
+      width: 170vh;
+      align-content: center;
+    }
+
+    /* Background pada Judul */
+    .info {
+      padding: 6px 8px;
+      font: 14px/16px Arial, Helvetica, sans-serif;
+      background: white;
+      background: rgb(255, 255, 255);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .info h2 {
+      margin: 0 0 5px;
+      color: #000000;
+    }
+
+    #peta {
+      height: 50;
+      width: 50;
+      margin-top: 100px;
+      margin-left: 120px;
+      justify-content: center;
+    }
+    body {
+            background-image: url(assets/img/gambar/kontur2.jpg);
+        }
+  </style>
+
+</head>
+
+<body>
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-10">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="index.html" class="logo">
+                        <img src="assets/img/dino.png" align="klassy cafe html template">
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li class="scroll-to-section"><a href="index.html" class="active">Beranda</a></li>
+                        <li class="scroll-to-section"><a href="wfsgeoserver1.html">Administrasi</a></li>
+                        <li class="scroll-to-section"><a href="wisata.php">Destinasi</a></li>
+                        <li class="scroll-to-section"><a href="perbandingan.html">Kurva</a></li>
+                    </ul>
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <br>
+  <br>
+  <div id="peta" class="container">
+    <div class="row gy-5 justify-content-center">
+      <div class="col-lg-1">
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <!-- Search JavaScript Library -->
+  <script src="assets/plugins/leaflet-search/leaflet-search.js"></script>
+
+  <!-- Leaflet Mouse Position JavaScript Library -->
+  <script src="assets/plugins/leaflet-mouseposition/L.Control.MousePosition.js"></script>
+
+  <!-- Leaflet Measure JavaScript Library -->
+  <script src="assets/plugins/leaflet-measure/leaflet-measure.js"></script>
+
+  <!-- EasyPrint JavaScript Library -->
+  <script src="assets/plugins/leaflet-easyprint/leaflet.easyPrint.js"></script>
+
+
+
+  <script>
+    /* Initial Map */ //(note: sesuaikan setView koordinat dan zoom level ke titik tengah lembar peta)
+    var map = L.map('map').setView([-6.985497, 110.415877], 10); //lat, long, zoom
+
+    /* Tile Basemap */ //(note: pilihan basemap diakses pada https://leaflet-extras.github.io/leaflet-providers/preview/)
+    var basemap1 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | <a href="DIVSIGUGM" target="_blank">DIVSIG UGM</a>' //menambahkan nama//
+    });
+
+    var basemap2 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/ { z } / { y } / { x }', {
+      attribution: 'Tiles &copy; Esri | <a href="Latihan WebGIS" target="_blank">DIVSIG UGM</a>'
+    });
+
+    var basemap3 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{ x } ', {
+      attribution: 'Tiles &copy; Esri | <a href="Lathan WebGIS" target="_blank">DIVSIG UGM</a>'
+    });
+
+    var basemap4 = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org / ">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    });
+
+    var basemap7 = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+      attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+    basemap1.addTo(map);
+
+
+    var wfsgeoserver1 = L.geoJson(null, {
+      pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+          // icon: L.icon({
+          //   iconUrl: "assets/img/marker/hospital.png",
+          //   iconSize: [32, 32],
+          //   iconAnchor: [16, 32],
+          //   popupAnchor: [0, -32],
+          //   tooltipAnchor: [16, -20]
+          // })
+        });
+      },
+      onEachFeature: function (feature, layer) {
+        var content = "Kecamatan: " + feature.properties.WADMKC + "<br>" +
+          "<img src= 'assets/img/gambar/4.jpg' width='200'>";
+
+        layer.on({
+          click: function (e) {
+            wfsgeoserver1.bindPopup(content).openPopup();
+          },
+          mouseover: function (e) {
+            wfsgeoserver1.bindTooltip(feature.properties.nama).openTooltip();
+          },
+          mouseout: function (e) {
+            wfsgeoserver1.closePopup();
+            wfsgeoserver1.closeTooltip();
+          }
+        });
+      }
+    });
+
+    $.getJSON("wfsgeoserver1.php", function (data) {
+      wfsgeoserver1.addData(data);
+      map.addLayer(wfsgeoserver1);
+      map.fitBounds(wfsgeoserver1.getBounds());
+
+
+      // Style and Popup handling
+      wfsgeoserver1.eachLayer(function (layer) {
+        var WADMKC = layer.feature.properties.WADMKC;
+
+        // Apply styling based on aktif property
+        if (WADMKC = "Semarang Timur") {
+          layer.setStyle({
+            fillColor: '#ffcccc',
+            color: '#232323',
+            fillOpacity: 1,
+            weight: 1
+          });
+        } else if (WADMKC = "Ngaliyan") {
+          layer.setStyle({
+            fillColor: '#ff8080',
+            color: '#232323',
+            fillOpacity: 1,
+            weight: 1
+          });
+        } else if (WADMKC = "Semarang Tengah") {
+          layer.setStyle({
+            fillColor: '#ff1a1a',
+            color: '#232323',
+            fillOpacity: 1,
+            weight: 1
+          });
+        }
+
+      });
+    })
+
+    
+
+    /* Image lagend */
+    L.Control.Watermark = L.Control.extend({
+      onAdd: function (map) {
+        var img = L.DomUtil.create('img');
+        img.src = 'assets/img/lagend/2.png';
+        img.style.width = '200px';
+        return img;
+      }
+    });
+
+    L.control.watermark = function (opts) {
+      return new L.Control.Watermark(opts);
+    }
+
+    L.control.watermark({ position: 'topleft' }).addTo(map);
+
+    /* Image Watermark */
+    L.Control.Watermark = L.Control.extend({
+      onAdd: function (map) {
+        var img = L.DomUtil.create('img');
+        img.src = 'assets/img/logo/SIG.png';
+        img.style.width = '200px';
+        return img;
+      }
+    });
+
+    L.control.watermark = function (opts) {
+      return new L.Control.Watermark(opts);
+    }
+
+    L.control.watermark({ position: 'bottomleft' }).addTo(map);
+
+    /* Layer Marker */
+    var marker1 = L.marker([-6.985497, 110.415877], { draggable: false });
+    marker1.addTo(map);
+    marker1.bindPopup("Simpsng Lima Semarang");
+
+    /* Control Layer */
+    var baseMaps = {
+      "OpenStreetMap": basemap1,
+      "Esri World Street": basemap2,
+      "Esri Imagery": basemap3,
+      "Stadia Dark Mode": basemap4,
+      "CyclOSM": basemap7
+
+    };
+
+    var overlayMaps = {
+      "Simpang Lima Semarang": marker1,
+    };
+
+    L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+
+    /* Scale Bar */
+    L.control.scale({
+      maxWidth: 150, position: 'bottomright'
+    }).addTo(map);
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Plugin Search 
+    var searchControl = new L.Control.Search({
+      position: "topleft",
+      layer: wfsgeoserver1, //Nama variabel layer
+      propertyName: "WADMKC", //Field untuk pencarian
+      marker: false,
+      moveToLocation: function (latlng, title, map) {
+        var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+        map.setView(latlng, zoom);
+      },
+    });
+    searchControl
+      .on("search:locationfound", function (e) {
+        e.layer.setStyle({
+          fillColor: "#ffff00",
+          color: "#0000ff",
+        });
+      })
+      .on("search:collapse", function (e) {
+        featuresLayer.eachLayer(function (layer) {
+          featuresLayer.resetStyle(layer);
+        });
+      });
+    map.addControl(searchControl);
+
+
+    /*Plugin Mouse Position Coordinate */
+    L.control.mousePosition({ position: "bottomright", separator: ",", prefix: "Point Coodinate: " }).addTo(map);
+
+    /*Plugin Measurement Tool */
+    var measureControl = new L.Control.Measure({
+      position: "topleft",
+      primaryLengthUnit: "meters",
+      secondaryLengthUnit: "kilometers",
+      primaryAreaUnit: "hectares",
+      secondaryAreaUnit: "sqmeters",
+      activeColor: "#FF0000",
+      completedColor: "#00FF00",
+    });
+    measureControl.addTo(map);
+
+    /*Plugin EasyPrint */
+    L.easyPrint({
+      title: "Print",
+    }).addTo(map);
+
+    /*Routing*/
+    L.Routing.control({
+      position: "topleft",
+      waypoints: [
+        L.latLng(-6.997148515442911, 110.40675088564782),
+        L.latLng(-6.9965799304765595, 110.42290528611478)
+      ],
+      routeWhileDragging: true
+    }).addTo(map);
+
+    var markers = L.markerClusterGroup();
+    for (var i = 0; i < addressPoints.length; i++) {
+      var a = addressPoints[i];
+      var title1 = a[2];
+      var marker = L.marker(new L.LatLng(a[0], a[1]), {
+        title: title1
+      });
+
+      marker.bindPopup(title1);
+      markers.addLayer(marker);
+    }
+
+    map.addLayer(markers);
+
+  </script>
+
+
+</body>
+
+</html>
