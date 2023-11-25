@@ -98,7 +98,7 @@
 
     <script>
         /* Initial Map */ //(note: sesuaikan setView koordinat dan zoom level ke titik tengah lembar peta)
-        var map = L.map('map').setView([-7.792815, 110.365935], 5); //lat, long, zoom
+        var map = L.map('map').setView([-6.989051501057268, 110.40061998974797], 13); //lat, long, zoom
 
         /* Tile Basemap */ //(note: pilihan basemap diakses pada https://leaflet-extras.github.io/leaflet-providers/preview/)
         var basemap1 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

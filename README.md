@@ -13,6 +13,7 @@ SIWARANG (Destinasi Wisata Kota Semarang) merupakan sebuah situs website yang ak
 - **CSS:** Memperbaiki UI dan juga interaksi.
 - **Bootstrap:** Framework CSS yang digunakan untuk pengembangan website yang responsif.
 - **Leaflet.js:** Library JavaScript untuk pengembangan peta interaktif.
+- **Apexchart:** Digunkan untuk penambahan Chart.
 - **Geoserver:** Digunakan sebagai server GIS untuk menyediakan dan mengelola data geospasial.
 - **PHPMyAdmin:** Digunakan untuk menyimpan database lokasi tempat wisata.
 
